@@ -1,14 +1,14 @@
-import LoginUserDto from "../dtos/loginUser.dto";
-import RegisterUserDto from "../dtos/registerUser.dto";
-import { User } from "../entities/User";
-import { UserRepository } from "../repositories/user.repository";
-import { ClientError } from "../utils/errors";
+import { JWT_SECRET } from '../config/envs';
+import LoginUserDto from '../dtos/loginUser.dto';
+import RegisterUserDto from '../dtos/registerUser.dto';
+import { User } from '../entities/User';
+import { UserRepository } from '../repositories/user.repository';
+import { ClientError } from '../utils/errors';
 import {
   checkPasswordService,
   createCredentialService,
-} from "./credential.service";
-import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../config/envs";
+} from './credential.service';
+import jwt from 'jsonwebtoken';
 
 export const checkUserExists = async (email: string): Promise<boolean> => {
   const user = await UserRepository.findOneBy({ email });
@@ -16,7 +16,7 @@ export const checkUserExists = async (email: string): Promise<boolean> => {
 };
 
 export const registerUserService = async (
-  registerUserDto: RegisterUserDto
+  registerUserDto: RegisterUserDto,
 ): Promise<User> => {
   const user = await UserRepository.create(registerUserDto);
   await UserRepository.save(user);
@@ -29,15 +29,15 @@ export const registerUserService = async (
 };
 
 export const loginUserService = async (
-  loginUserDto: LoginUserDto
+  loginUserDto: LoginUserDto,
 ): Promise<{ token: string; user: User }> => {
   const user: User | null = await UserRepository.findOne({
     where: {
       email: loginUserDto.email,
     },
-    relations: ["credential", "orders"],
+    relations: ['credential', 'orders'],
   });
-  if (!user) throw new Error("User not found");
+  if (!user) throw new Error('User not found');
   if (
     await checkPasswordService(loginUserDto.password, user.credential.password)
   ) {
@@ -48,6 +48,7 @@ export const loginUserService = async (
       token,
     };
   } else {
-    throw new ClientError("Invalid password");
+    throw new ClientError('Invalid password');
   }
 };
+

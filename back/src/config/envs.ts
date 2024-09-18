@@ -1,11 +1,13 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-export const PORT: number = Number(process.env.PORT);
-export const DB_NAME: string = process.env.DB_NAME;
-export const DB_USER: string = process.env.DB_USER;
-export const DB_PASSWORD: string = process.env.DB_PASSWORD;
-export const DB_HOST: string = process.env.DB_HOST;
-export const DB_PORT: number = Number(process.env.DB_PORT);
-export const JWT_SECRET: string = process.env.JWT_SECRET;
-
+export const PORT = Number(process.env.PORT);
+export const DB_NAME = process.env.DB_NAME;
+export const DB_USER = process.env.DB_USER;
+export const DB_PASSWORD = process.env.DB_PASSWORD;
+export const DB_HOST = process.env.DB_HOST;
+export const DB_PORT = Number(process.env.DB_PORT);
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET is not defined');
+}
+export const JWT_SECRET = process.env.JWT_SECRET;

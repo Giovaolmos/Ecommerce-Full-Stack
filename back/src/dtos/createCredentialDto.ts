@@ -1,5 +1,4 @@
-interface CreateCredentialDto {
-    password: string;
+export interface CreateCredentialDto {
+  password: string;
 }
 
-export default CreateCredentialDto;
