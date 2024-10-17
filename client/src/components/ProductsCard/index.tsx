@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { IProductsProps } from '@/interfaces/products/IProductsProps';
 
 function ProductCard({ product }: IProductsProps) {
