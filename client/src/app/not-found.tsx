@@ -8,7 +8,7 @@ function NotFound() {
         <br />
         Page Not Found.
       </h2>
-      <Link href="/home"> Go back to Hom</Link>
+      <Link href="/home"> Go back to Home</Link>
     </div>
   );
 }
